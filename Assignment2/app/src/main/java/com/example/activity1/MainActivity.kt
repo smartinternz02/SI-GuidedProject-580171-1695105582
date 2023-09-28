@@ -1,46 +1,40 @@
 package com.example.activity1
-
 import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.activity1.ui.theme.Activity1Theme
+import android.widget.Button
+import android.widget.ImageView
 
-class MainActivity : ComponentActivity() {
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.ComponentActivity
+
+
+class MainActivity : ComponentActivity(){
+    private lateinit var editText1: TextView
+    private lateinit var button1: Button
+    private lateinit var imageView3 : ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            Activity1Theme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
-            }
+        setContentView(R.layout.activity_main)
+        editText1 =findViewById(R.id.editText1)
+        button1=findViewById(R.id.button1)
+        imageView3  =findViewById(R.id.imageView3)
+        button1.setOnClickListener{
+            val toast1 =Toast.makeText(this,"Dice rolled",Toast.LENGTH_LONG)
+            toast1.show()
+            rolldice()
         }
     }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    Activity1Theme {
-        Greeting("Android")
+    private fun rolldice(){
+        val random= java.util.Random()
+        val randomNumber=random.nextInt(6)+1
+        val resultText= "you rolled a $randomNumber"
+        editText1.text=resultText
+        if (randomNumber==1){ imageView3.setImageResource(R.drawable.dice1)}
+        else if(randomNumber==2){imageView3.setImageResource(R.drawable.dice2)}
+        else if(randomNumber==3){imageView3.setImageResource(R.drawable.dice3)}
+        else if(randomNumber==4){imageView3.setImageResource(R.drawable.dice4)}
+        else if(randomNumber==5){imageView3.setImageResource(R.drawable.dice5)}
+        else{imageView3.setImageResource(R.drawable.dice6)}
     }
 }
